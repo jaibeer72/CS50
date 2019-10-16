@@ -17,7 +17,8 @@ def index():
         session["notes"]=[]
     if request.method == "POST":
         note = request.form.get("note")
-        session["notes"].append(note)   
+        session["notes"].append(note)
+
     return render_template("index.html", Notes=session["notes"])
     
 
