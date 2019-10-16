@@ -7,6 +7,9 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
+@app.route('/', methods=['POST'])
+def lol():
+    pass:
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
@@ -16,6 +19,5 @@ def index():
         note = request.form.get("note")
         session["notes"].append(note)   
     return render_template("index.html", Notes=session["notes"])
-
     
 
