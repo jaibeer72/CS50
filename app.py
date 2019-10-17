@@ -1,16 +1,23 @@
-from flask import Flask , render_template
+from flask import Flask, render_template,request,session
+from flask_session import Session
 
 app = Flask(__name__)
 
-#Global Variables. 
-Notes = {"Hi", "MyName is ","<h1>Jaibeer</h1>"}
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_TYPE"] = "filesystem"
+Session(app)
 
-@app.route("/") #This is default rout 
+@app.route('/', methods=['POST'])
+def lol():
+    pass:
+
+@app.route("/", methods=['GET', 'POST'])
 def index():
-    note = "Why?"
-    return render_template('index.html', Notes=Notes)
+    if session.get("notes") is None:
+        session["notes"]=[]
+    if request.method == "POST":
+        note = request.form.get("note")
+        session["notes"].append(note)   
+    return render_template("index.html", Notes=session["notes"])
+    
 
-@app.route("/<string:name>")
-def hello(name):
-    name.capitalize()
-    return f"Hello, {name}"
